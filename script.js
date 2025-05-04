@@ -7,10 +7,12 @@ const timerSpan = document.getElementById("tempo");
 const som = document.getElementById("miau-som");
 const popup = document.getElementById("popup");
 const fecharPopup = document.getElementById("fechar-popup");
+const susto = document.getElementById("susto");
+const somSusto = document.getElementById("som-susto");
 
 let cliques = 0;
 let tempo = 20;
-let timer;
+let timer = null;
 let recorde = localStorage.getItem("recorde") || 0;
 recordeSpan.textContent = recorde;
 
@@ -25,21 +27,23 @@ const frases = [
 ];
 
 function moverGatinho() {
-  const margem = 80;
-  const maxX = window.innerWidth - 150 - margem;
-  const maxY = window.innerHeight - 200 - margem;
-  const x = Math.random() * maxX;
-  const y = Math.random() * maxY;
+  const jogo = document.getElementById("jogo");
+  const margem = 20;
+  const maxX = jogo.clientWidth - gatinho.offsetWidth - margem;
+  const maxY = jogo.clientHeight - gatinho.offsetHeight - margem;
+  const x = margem + Math.random() * maxX;
+  const y = margem + Math.random() * maxY;
 
   gatinho.style.left = `${x}px`;
   gatinho.style.top = `${y}px`;
 }
 
+
 function mostrarPopup() {
   popup.style.display = "flex";
 }
 
-fecharPopup.addEventListener("click", function() {
+fecharPopup.addEventListener("click", function () {
   popup.style.display = "none";
 });
 
@@ -47,13 +51,14 @@ function iniciarTimer() {
   clearInterval(timer);
   tempo = 20;
   timerSpan.textContent = tempo;
-  
+
   timer = setInterval(() => {
     tempo--;
     timerSpan.textContent = tempo;
 
     if (tempo <= 0) {
       clearInterval(timer);
+      timer = null;
       mensagem.textContent = `⏰ Tempo esgotado! Você clicou ${cliques} vez(es)!`;
 
       mostrarPopup();
@@ -74,6 +79,17 @@ gatinho.addEventListener("click", () => {
   cliques++;
   contadorSpan.textContent = cliques;
 
+  if (cliques === 10) {
+    susto.classList.add("mostrar");
+    susto.style.display = "flex";
+    somSusto.play().catch(console.error);
+  
+    setTimeout(() => {
+      susto.classList.remove("mostrar");
+      susto.style.display = "none";
+    }, 3000);
+  }
+
   frase.textContent = frases[Math.floor(Math.random() * frases.length)];
 
   som.currentTime = 0;
@@ -81,9 +97,9 @@ gatinho.addEventListener("click", () => {
 
   setTimeout(() => {
     moverGatinho();
-  }, 200);
+  }, 500);
 
-  if (tempo === 20) {
+  if (!timer) {
     iniciarTimer();
   }
 

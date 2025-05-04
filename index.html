@@ -8,22 +8,32 @@
   <link href="https://fonts.googleapis.com/css2?family=Fredoka&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div id="popup" class="popup">
-        <div class="popup-content">
-          <h2>Parabéns Carolina!</h2>
-          <p>Você conseguiu clicar no gatinho vey</p>
-          <button id="fechar-popup">Fechar</button>
-        </div>
-      </div>
+  <div id="susto" style="display: none;">
+    <img src="img/FAZO L.png" alt="Susto" id="susto-img"  style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 200%; height: auto; z-index: 9999;" />
+    <audio id="som-susto" src="audio/terror-scream-grito-terror-101302.mp3" preload="auto"></audio>
+  </div>
+
+  <div id="popup" class="popup">
+    <div class="popup-content">
+      <h2>Parabéns Carolina!</h2>
+      <p>Você conseguiu clicar no gatinho vey</p>
+      <button id="fechar-popup">Fechar</button>
+    </div>
+  </div>
+
   <h1>Clique no Gatinho! 🐱</h1>
   <p id="mensagem">Tente clicar no gato!</p>
   <p id="timer">⏱️ Tempo restante: <span id="tempo">20</span>s</p>
-  <img id="gatinho" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdnpscXR2emJsdWVjaDE2cm9xZXd2d204enh4azJ4NThvbHJrZzRzbSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/nyDuytA5bRdbW/giphy.gif" alt="Gatinho" />
+
+  <div id="jogo">
+    <img id="gatinho" src="https://media.giphy.com/media/nyDuytA5bRdbW/giphy.gif" alt="Gatinho" />
+  </div>
+
   <p id="frase"></p>
   <p>🐾 Cliques: <span id="contador">0</span> | 🔥 Recorde: <span id="recorde">0</span></p>
 
   <audio id="miau-som" src="audio/cat-meow-297927.mp3" preload="auto"></audio>
-
+  <link rel = "stylesheet" href="style.css">
   <script src="script.js"></script>
 </body>
 </html>
